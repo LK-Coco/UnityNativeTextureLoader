@@ -1,0 +1,16 @@
+[
+{
+  "directory": "D:\\Git_projects\\unity_texture_loader\\Source",
+  "arguments": ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/Isrc", "/Isrc\\unity_plugin_api", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\unity_native_texture_loader\\windows\\x64\\release\\src\\main.cpp.obj", "src\\main.cpp"],
+  "file": "src\\main.cpp"
+},
+{
+  "directory": "D:\\Git_projects\\unity_texture_loader\\Source",
+  "arguments": ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/Isrc", "/Isrc\\unity_plugin_api", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\unity_native_texture_loader\\windows\\x64\\release\\src\\stb_image.cpp.obj", "src\\stb_image.cpp"],
+  "file": "src\\stb_image.cpp"
+},
+{
+  "directory": "D:\\Git_projects\\unity_texture_loader\\Source",
+  "arguments": ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/Isrc", "/Isrc\\unity_plugin_api", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\unity_native_texture_loader\\windows\\x64\\release\\src\\stb_image_write.cpp.obj", "src\\stb_image_write.cpp"],
+  "file": "src\\stb_image_write.cpp"
+}]

@@ -1,0 +1,10 @@
+# Xmake cache
+Source/.xmake/
+Source/build/
+
+
+
+UnityDemo/Library/
+UnityDemo/Logs/
+UnityDemo/obj/
+UnityDemo/Temp/
