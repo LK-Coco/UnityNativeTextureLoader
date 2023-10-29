@@ -3,8 +3,20 @@ Source/.xmake/
 Source/build/
 
 
-
-UnityDemo/Library/
-UnityDemo/Logs/
-UnityDemo/obj/
-UnityDemo/Temp/
+UnityTextureLoaderDemo/.vs/
+UnityTextureLoaderDemo/Library/
+UnityTextureLoaderDemo/Logs/
+UnityTextureLoaderDemo/obj/
+UnityTextureLoaderDemo/Temp/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
