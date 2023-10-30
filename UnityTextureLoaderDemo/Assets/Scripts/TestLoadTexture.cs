@@ -68,7 +68,7 @@ public class TestLoadTexture : MonoBehaviour
             return;
         }
 
-        _tex2d_native = Texture2D.CreateExternalTexture(w, h, TextureFormat.RGBA32, false, false, _texPtr);
+        _tex2d_native = Texture2D.CreateExternalTexture(w, h, TextureFormat.RGBA32,false, true, _texPtr);
         TexUI_native.texture = _tex2d_native;
     }
 
