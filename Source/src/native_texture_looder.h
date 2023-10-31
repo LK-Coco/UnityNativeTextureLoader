@@ -10,7 +10,8 @@ public:
 
     virtual void on_unity_plugin_load(IUnityInterfaces* unity_interfaces) = 0;
 
-    virtual void* load_texture_from_path(const char* path, int& width,
+    virtual void* load_texture_from_path(const char* path, int graphics_format,
+                                         bool gen_mip, int& width,
                                          int& height) = 0;
 
     virtual void unload(void* native_ptr) = 0;

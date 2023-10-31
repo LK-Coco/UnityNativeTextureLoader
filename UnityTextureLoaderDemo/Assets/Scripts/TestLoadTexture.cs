@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Threading.Tasks;
 
 public class TestLoadTexture : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class TestLoadTexture : MonoBehaviour
 
     private Texture2D _tex2d_normal;
     private Texture2D _tex2d_native;
+
+
 
     private string _path => Application.dataPath + "/" + TexturePath[index];
 
@@ -35,8 +38,16 @@ public class TestLoadTexture : MonoBehaviour
         Cube.localEulerAngles = rot;    
     }
 
+    private void OnDestroy()
+    {
+        NormalUnloadTex();
+        DXNativeUnloadTex();
+    }
+
     public async void NormalLoadTex()
     {
+        NormalUnloadTex();
+
         using FileStream fs = new FileStream(_path, FileMode.Open);
         byte[] buffer = new byte[fs.Length];
         await fs.ReadAsync(buffer, 0, buffer.Length);
@@ -50,25 +61,35 @@ public class TestLoadTexture : MonoBehaviour
 
     public void NormalUnloadTex()
     {
-        Destroy(_tex2d_normal);
-        _tex2d_normal = null;
+        if(_tex2d_normal != null)
+        {
+            Destroy(_tex2d_normal);
+            _tex2d_normal = null;
+        }
     }
 
 
-    private IntPtr _texPtr;
+    private IntPtr _texPtr = IntPtr.Zero;
 
-    public void DXNativeLoadTex()
+    public async void DXNativeLoadTex()
     {
+        DXNativeUnloadTex();
+
         int w=0, h=0,ret =0;
-        _texPtr = load_texture_from_path(_path, ref w, ref h,ref ret);
+        // TODO: need async
+        _texPtr = load_texture_from_path(_path, DX11TexFormat.DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, true, ref w, ref h, ref ret);
+        //await Task.Run(() =>
+        //{
+        //});
+
         Debug.Log($"load tex code:{ret}");
         if (_texPtr == IntPtr.Zero)
         {
             Debug.LogError("load tex failed!");
             return;
         }
-
-        _tex2d_native = Texture2D.CreateExternalTexture(w, h, TextureFormat.RGBA32,false, true, _texPtr);
+        
+        _tex2d_native = Texture2D.CreateExternalTexture(w, h, TextureFormat.ARGB32,true, false, _texPtr);
         TexUI_native.texture = _tex2d_native;
     }
 
@@ -79,17 +100,22 @@ public class TestLoadTexture : MonoBehaviour
             Destroy(_tex2d_native);
             _tex2d_native = null;
             unload(_texPtr);
+            _texPtr = IntPtr.Zero;
             Debug.Log("unload ok");
         }
-        else
-        {
-            Debug.LogError("texptr is nullptr");
-        }
+
+    }
+
+
+    public enum DX11TexFormat
+    {
+        DXGI_FORMAT_R8G8B8A8_UNORM = 28,
+        DXGI_FORMAT_R8G8B8A8_UNORM_SRGB = 29,
     }
 
 
     [DllImport("unity_native_texture_loader")]
-    extern static IntPtr load_texture_from_path(string path,ref int width, ref int height,ref int ret);
+    extern static IntPtr load_texture_from_path(string path, DX11TexFormat texFormat, bool genMip,ref int width, ref int height,ref int ret);
 
     [DllImport("unity_native_texture_loader")]
     extern static void unload(IntPtr native_tex);

@@ -24,13 +24,15 @@ UnityPluginLoad(IUnityInterfaces *unity_interfaces) {
 }
 
 extern "C" __declspec(dllexport) void *load_texture_from_path(
-    const char *file_path, int &width, int &height, int &ret_code) {
+    const char *file_path, int graphics_format, bool gen_mip, int &width,
+    int &height, int &ret_code) {
     ret_code = 0;
     if (loader == nullptr) {
         ret_code = 1;
         return nullptr;
     }
-    auto result = loader->load_texture_from_path(file_path, width, height);
+    auto result = loader->load_texture_from_path(file_path, graphics_format,
+                                                 gen_mip, width, height);
     ret_code = loader->get_err_code();
     return result;
 }
