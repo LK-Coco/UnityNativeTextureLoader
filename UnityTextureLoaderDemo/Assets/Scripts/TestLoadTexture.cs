@@ -27,7 +27,7 @@ public class TestLoadTexture : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        //Debug.Log(init());
     }
 
     // Update is called once per frame
@@ -73,14 +73,14 @@ public class TestLoadTexture : MonoBehaviour
 
     public async void DXNativeLoadTex()
     {
-        DXNativeUnloadTex();
-
+        //DXNativeUnloadTex();
+        init();
         int w=0, h=0,ret =0;
         // TODO: need async
+        await Task.Run(() =>
+        {
         _texPtr = load_texture_from_path(_path, DX11TexFormat.DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, true, ref w, ref h, ref ret);
-        //await Task.Run(() =>
-        //{
-        //});
+        });
 
         Debug.Log($"load tex code:{ret}");
         if (_texPtr == IntPtr.Zero)
@@ -112,6 +112,9 @@ public class TestLoadTexture : MonoBehaviour
         DXGI_FORMAT_R8G8B8A8_UNORM = 28,
         DXGI_FORMAT_R8G8B8A8_UNORM_SRGB = 29,
     }
+
+    [DllImport("unity_native_texture_loader")]
+    extern static int init();
 
 
     [DllImport("unity_native_texture_loader")]

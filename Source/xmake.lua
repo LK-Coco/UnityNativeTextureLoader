@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
+set_languages("cxx20")
+
 target("unity_native_texture_loader")
     set_kind("shared")
     add_includedirs("src/","src/unity_plugin_api/")
